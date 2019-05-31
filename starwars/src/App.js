@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
+import CharacterList from './components/CharacterList'
 
 class App extends Component {
   constructor() {
@@ -29,10 +30,26 @@ class App extends Component {
       });
   };
 
+  toggle = (props) => {
+    this.setState(prevState => {
+      return {
+        starwarsChars: prevState.starwarsChars.map(item => {
+          if (item.name === props.name) {
+            item.checked = !item.checked;
+          }
+          return item;
+        })
+      }
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <h1 className="Header">React Wars</h1>
+        <CharacterList 
+          list={this.state.starwarsChars}
+          clickHandler={this.toggle}/>
       </div>
     );
   }
